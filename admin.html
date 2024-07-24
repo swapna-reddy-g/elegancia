@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Welcome</title>
+</head>
+<body>
+  <h1>Welcome to Enchante <span id="username"></span></h1>
+  
+  <main>
+    <section id="slider">
+      <div class="slider-text">Choose today's default discount</div>
+      <div class="slider-container">
+        <input type="range" min="0" max="100" value="0" class="slider" id="mySlider">
+        <input type="number" min="0" max="100" value="0" id="sliderValue">
+      </div>
+      <button id="saveButton">Apply Discount</button>
+    </section>
+  </main>
+
+  <div class="logout-button-container">
+    <button id="logout-button">Logout</button>
+  </div>
+
+
+  
+  <script>
+    // Get the slider and number input elements
+    const slider = document.getElementById('mySlider');
+    const numberInput = document.getElementById('sliderValue');
+
+    // Add an event listener to the slider
+    slider.addEventListener('input', updateNumberInput);
+
+    // Function to update the number input value
+    function updateNumberInput() {
+      numberInput.value = slider.value;
+    }
+
+    // ... (existing JavaScript code) ...
+  </script>
+
+  <script>
+    // Get the username from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+
+    // Update the username span with the retrieved username
+    document.getElementById('username').textContent = username;
+
+    // Logout function
+    function logout() {
+      // Clear user session data
+      localStorage.removeItem('token');
+
+      // Redirect to login page
+      window.location.href = 'index.html';
+    }
+
+    // Add event listener to the logout button
+    document.getElementById('logout-button').addEventListener('click', logout);
+  </script>
+</body>
+</html>
+

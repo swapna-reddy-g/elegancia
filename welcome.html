@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome</title>
+</head>
+<body>
+  <h1>Welcome to Enchante <span id="username"></span></h1>
+  <h2>You have user access</h2>
+  <button id="logout-button">Logout</button>
+
+  <script>
+    // Get the username from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+
+    // Update the username span with the retrieved username
+    document.getElementById('username').textContent = username;
+
+    // Logout function
+    function logout() {
+      // Clear user session data
+      localStorage.removeItem('token');
+
+      // Redirect to login page
+      window.location.href = 'index.html';
+    }
+
+    // Add event listener to the logout button
+    document.getElementById('logout-button').addEventListener('click', logout);
+  </script>
+</body>
+</html>
