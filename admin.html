@@ -39,6 +39,22 @@
       numberInput.value = slider.value;
     }
 
+    // Get the "Apply Discount" button element
+    const saveButton = document.getElementById('saveButton');
+
+    // Add an event listener to the button
+    saveButton.addEventListener('click', () => {
+      const discountValue = slider.value; // Get the discount value from the slider
+      localStorage.setItem('discount', discountValue); // Store the discount value in localStorage
+
+      // Show a pop-up
+      alert('Offers Created');
+
+    // Redirect to index.html
+    window.location.href = 'index.html';
+
+});
+
     // ... (existing JavaScript code) ...
   </script>
 
@@ -64,4 +80,3 @@
   </script>
 </body>
 </html>
-

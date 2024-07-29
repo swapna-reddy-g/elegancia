@@ -77,3 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function showTemporaryMessage(message) {
+    const messageElement = document.getElementById('temporary-message');
+    messageElement.textContent = message;
+    messageElement.style.display = 'block';
+  
+    setTimeout(() => {
+      messageElement.style.display = 'none';
+    }, 2000); // Hide the message after 2 seconds (2000 milliseconds)
+  }
+  

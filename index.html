@@ -138,6 +138,21 @@
     }
   ];
 
+  
+// Get the discount value from localStorage
+const discount = localStorage.getItem('discount');
+
+// Update the product price if a discount is available
+if (discount) {
+  products.forEach(product => {
+    const discountedPrice = product.price * (1 - discount / 100);
+    product.price = discountedPrice;
+  });
+}
+
+// Use the updated product data in your application
+console.log(products);
+
   // Render products initially
   renderProducts(products);
 
@@ -214,6 +229,14 @@
     const discount = slider.value;
     renderProducts(products, discount);
   });
+
+  // Reset product prices to default when the website is closed
+  window.addEventListener('unload', () => {
+    products.forEach(product => {
+      product.price = product.defaultPrice;
+    });
+  });
+</script>
 
 
 
@@ -330,6 +353,7 @@
             <button type="submit">Login</button>
             <a href="http://localhost:3000/auth/google">Login with Google</a> <!-- Corrected URL -->
             <a href="http://localhost:3000/auth/gitlab">Login with Gitlab</a> <!-- Corrected URL -->
+            
         </form>
     </div>
 
