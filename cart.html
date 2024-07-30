@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <style>
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .cart-item img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .cart-item button {
+      margin-left: auto;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+    }
+
+    .quantity-controls button {
+      padding: 5px 10px;
+    }
+
+    .quantity-controls input {
+      width: 40px;
+      text-align: center;
+      margin: 0 5px;
+    }
+
+    #cart-total {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Cart</h1>
+  <div id="cart-container"></div>
+  <div id="cart-total"></div>
+
+  <script>
+    const cartContainer = document.getElementById('cart-container');
+    const cartTotalElement = document.getElementById('cart-total');
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCart() {
+      cartContainer.innerHTML = '';
+
+      cart.forEach((cartItem, index) => {
+        const cartItemElement = document.createElement('div');
+        cartItemElement.classList.add('cart-item');
+        cartItemElement.innerHTML = `
+          <img src="${cartItem.imageSource}" alt="${cartItem.name}">
+          <div>
+            <h3>${cartItem.name}</h3>
+            <p>Price: $${cartItem.price.toFixed(2)}</p>
+            <div class="quantity-controls">
+              <button data-index="${index}" data-action="decrease">-</button>
+              <input type="number" value="${cartItem.quantity}" min="1" data-index="${index}">
+              <button data-index="${index}" data-action="increase">+</button>
+            </div>
+          </div>
+          <button data-index="${index}" data-action="remove">Remove</button>
+        `;
+        cartContainer.appendChild(cartItemElement);
+      });
+      updateCartTotal();
+    }
+
+    function updateCartItem(index, action) {
+      const cartItem = cart[index];
+
+      switch (action) {
+        case 'increase':
+          cartItem.quantity++;
+          break;
+        case 'decrease':
+          if (cartItem.quantity > 1) {
+            cartItem.quantity--;
+          }
+          break;
+        case 'remove':
+          cart.splice(index, 1);
+          break;
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function updateCartTotal() {
+      const total = cart.reduce((acc, cartItem) => {
+        return acc + cartItem.price * cartItem.quantity;
+      }, 0);
+
+      cartTotalElement.textContent = `Cart Value: $${total.toFixed(2)}`;
+    }
+
+    cartContainer.addEventListener('click', (event) => {
+      if (event.target.tagName === 'BUTTON') {
+        const index = event.target.dataset.index;
+        const action = event.target.dataset.action;
+        updateCartItem(index, action);
+      } else if (event.target.tagName === 'INPUT') {
+        const index = event.target.dataset.index;
+        const quantity = parseInt(event.target.value, 10);
+        if (!isNaN(quantity) && quantity > 0) {
+          cart[index].quantity = quantity;
+          localStorage.setItem('cart', JSON.stringify(cart));
+          renderCart();
+        }
+      }
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>
