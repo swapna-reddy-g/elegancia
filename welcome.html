@@ -43,28 +43,17 @@
     </div>
   </section>
 </section>
-<<<<<<< HEAD
 <div class="logout-button-container">
   <button id="logout-button">Logout</button>
 </div>
-=======
-<footer>
-  <div id="Logout">
-    <button id="logout-button">Logout</button>
-  </div>
-</footer>
->>>>>>> origin/master
 
 
   <script>
     // Get the username from the URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username');
-<<<<<<< HEAD
     const logoutLink = document.querySelector('a[href="#Logout"]');
     const logoutButton = document.getElementById('logout-button');
-=======
->>>>>>> origin/master
 
     // Update the username span with the retrieved username
     document.getElementById('username').textContent = username;
@@ -77,7 +66,6 @@
       // Redirect to login page
       window.location.href = 'index.html';
     }
-<<<<<<< HEAD
     // Get the logout button container
     const logoutButtonContainer = document.querySelector('.logout-button-container');
     // Function to hide the logout button
@@ -92,11 +80,5 @@
     logoutLink.addEventListener('click', logout);
     logoutButton.addEventListener('click', logout);
       </script>
-=======
-
-    // Add event listener to the logout button
-    document.getElementById('logout-button').addEventListener('click', logout);
-  </script>
->>>>>>> origin/master
 </body>
 </html>

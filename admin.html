@@ -8,22 +8,12 @@
 </head>
 <body>
   <h1>Welcome to Enchante <span id="username"></span></h1>
-<<<<<<< HEAD
-=======
-  
->>>>>>> origin/master
   <main>
     <section id="slider">
       <div class="slider-text">Choose today's default discount</div>
       <div class="slider-container">
         <input type="range" min="0" max="100" value="0" class="slider" id="mySlider">
         <input type="number" min="0" max="100" value="0" id="sliderValue">
-<<<<<<< HEAD
-=======
-        <select id="productIds" multiple>
-
-        </select>
->>>>>>> origin/master
       </div>
       <button id="saveButton">Apply Discount</button>
       <!-- Products section -->
@@ -61,7 +51,6 @@
       }
 
     }
-<<<<<<< HEAD
     function applyDiscountToSelectedProducts(discountValue) {
     let products = getSetProducts('get', []) || [];
     let discountedProducts = products.map((product) => {
@@ -82,37 +71,10 @@
         }
     // Add an event listener to the slider
     slider.addEventListener('input', updateNumberInput);
-=======
-
-    function applyDiscountToSelectedProducts(discountValue,selectedProductIds) {
-      let products = getSetProducts('get', []) || [];
-      let discountedProducts = products.map((product, index) => {
-        if (selectedProductIds.includes(index)) {
-        console.log(product.discount,"product");
-
-          product.discount = parseInt(discountValue);
-          product.price = product.price * (100 - parseInt(discountValue)) / 100;
-        }
-        return product;
-
-      });
-
-      getSetProducts('set', discountedProducts)
-      // Get the discount value from the slider
-      // Show a pop-up
-      alert('Offers Created');
-
-      // get products from the localstorage
-    }
-    // Add an event listener to the slider
-    slider.addEventListener('input', updateNumberInput);
-
->>>>>>> origin/master
     // Function to update the number input value
     function updateNumberInput() {
       numberInput.value = slider.value;
     }
-<<<<<<< HEAD
     // Get the "Apply Discount" button element
     const saveButton = document.getElementById('saveButton');
     // Add an event listener to the button
@@ -123,55 +85,19 @@
     alert("Offers Created");
 });
   </script>
-=======
-
-    // Get the "Apply Discount" button element
-    const saveButton = document.getElementById('saveButton');
-
-    // Add an event listener to the button
-    saveButton.addEventListener('click', () => {
-      const discountValue = slider.value; // Get the discount value from the slider
-      localStorage.setItem('discount', discountValue); // Store the discount value in localStorage
-      const selectedProductIds = Array.from(productIds.selectedOptions).map(option => parseInt(option.value));
-      applyDiscountToSelectedProducts(discountValue,selectedProductIds);
-      // Show a pop-up
-      alert('Offers Created');
-
-
-});
-
-    // ... (existing JavaScript code) ...
-  </script>
-
->>>>>>> origin/master
   <script>
     // Get the username from the URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username');
-<<<<<<< HEAD
     // Update the username span with the retrieved username
     document.getElementById('username').textContent = username;
-=======
-
-    // Update the username span with the retrieved username
-    document.getElementById('username').textContent = username;
-
->>>>>>> origin/master
     // Logout function
     function logout() {
       // Clear user session data
       localStorage.removeItem('token');
-<<<<<<< HEAD
       // Redirect to login page
       window.location.href = 'index.html';
     }
-=======
-
-      // Redirect to login page
-      window.location.href = 'index.html';
-    }
-
->>>>>>> origin/master
     // Add event listener to the logout button
     document.getElementById('logout-button').addEventListener('click', logout);
   </script>
@@ -182,14 +108,6 @@
     <div id="chatbot-messages" class="chatbot-messages"></div>
     <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type a message...">
   </div>
-<<<<<<< HEAD
   <script src="admin-chatbot.js"></script>
 </body>
 </html>
-=======
-
-  <script src="admin-chatbot.js"></script>
-
-</body>
-</html>
->>>>>>> origin/master
