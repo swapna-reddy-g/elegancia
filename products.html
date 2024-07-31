@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enchante-Where elegance comes alive</title>
+    <link rel="shortcut icon" href="image/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section>
+      <!--Products-->
+      <div class="products" id="Products">
+        <div class="box">
+          <!-- Product cards will be dynamically rendered here -->
+        </div>
+      </div>
+      
+      
+      
+      <script>
+      
+        const products = [
+          {
+            name: 'Dress1',
+            description: 'Red cocktail full length dress.',
+            price: 100.99,
+            rating: 5,
+            imageSource: 'pics/shoes1.jpg'
+          },
+          {
+            name: 'Dress2',
+            description: 'Pink color cocktail dress with train.',
+            price: 200.99,
+            rating: 4.5,
+            imageSource: 'pics/shoes2.jpg'
+          },
+          {
+            name: 'Dress3',
+            description: 'Gold color cocktail full length dress.',
+            price: 175.99,
+            rating: 3.5,
+            imageSource: 'pics/shoes3.jfif'
+          },
+          {
+            name: 'Dress4',
+            description: 'Yellow color full length cocktail dress with long train.',
+            price: 120.99,
+            rating: 4,
+            imageSource: 'pics/shoes4.jfif'
+          },
+          {
+            name: 'Dress5',
+            description: 'Pink color short cocktail dress.',
+            price: 150.99,
+            rating: 5,
+            imageSource: 'pics/shoes5.jpg'
+          },
+          {
+            name: 'Dress6',
+            description: 'Purple floral princess dress frills.',
+            price: 220.99,
+            rating: 4.5,
+            imageSource: 'pics/shoes6.jpg'
+          },
+          {
+            name: 'Dress7',
+            description: 'White full length cocktail dress with pearls.',
+            price: 110.99,
+            rating: 3,
+            imageSource: "pics/shoes7.jfif"
+            
+          },
+          {
+            name: 'Dress8',
+            description: 'French style biscuit color frock,with silver belt.',
+            price: 150.99,
+            rating: 4.5,
+            imageSource: 'pics/shoes8.jpg'
+          }
+        ];
+      
+        
+      // Get the discount value from localStorage
+      const discount = localStorage.getItem('discount');
+      
+      // Update the product price if a discount is available
+      if (discount) {
+        products.forEach(product => {
+          const discountedPrice = product.price * (1 - discount / 100);
+          product.price = discountedPrice;
+        });
+      }
+      
+      // Use the updated product data in your application
+      console.log(products);
+      
+        // Render products initially
+        renderProducts(products);
+      
+        // Function to render product cards
+      function renderProducts(products, discount = 0) {
+          const productsContainer = document.getElementById('Products');
+          const boxContainer = productsContainer.querySelector('.box');
+          boxContainer.innerHTML = '';
+      
+          products.forEach(product => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+      
+            const smallCard = document.createElement('div');
+            smallCard.classList.add('small_card');
+            const heart = document.createElement('i');
+            heart.classList.add('fa-solid', 'fa-heart');
+            const share = document.createElement('i');
+            share.classList.add('fa-solid', 'fa-share');
+            smallCard.appendChild(heart);
+            smallCard.appendChild(share);
+            card.appendChild(smallCard);
+      
+            const image = document.createElement('div');
+            image.classList.add('image');
+            const img = document.createElement('img');
+            img.src = product.imageSource;
+            image.appendChild(img);
+            card.appendChild(image);
+      
+            const productsText = document.createElement('div');
+            productsText.classList.add('products_text');
+            const name = document.createElement('name');
+            name.textContent = product.name;
+            productsText.appendChild(name);
+      
+            const description = document.createElement('p');
+            description.textContent = product.description;
+            productsText.appendChild(description);
+      
+            const price = document.createElement('p');
+            price.classList.add('price');
+            const discountedPrice = product.price * (1 - discount / 100);
+            price.textContent = `$${discountedPrice.toFixed(2)}`;
+            productsText.appendChild(price);
+      
+            const productsStar = document.createElement('div');
+            productsStar.classList.add('products_star');
+            for (let i = 0; i < 5; i++) {
+              const star = document.createElement('i');
+              star.classList.add('fa-solid', i < Math.floor(product.rating) ? 'fa-star' : 'fa-star-half-stroke');
+              if (i >= Math.ceil(product.rating)) {
+                star.classList.remove('fa-solid');
+                star.classList.add('fa-regular');
+              }
+              productsStar.appendChild(star);
+            }
+            productsText.appendChild(productsStar);
+      
+            const btn = document.createElement('button');
+            btn.classList.add('btn');
+            btn.textContent = 'Add To Cart';
+            btn.addEventListener('click', () => addToCart(product));
+            productsText.appendChild(btn);
+      
+            card.appendChild(productsText);
+            boxContainer.appendChild(card);
+          });
+        }
+      
+        // Function to add a product to the cart
+        function addToCart(product) {
+          let cart = JSON.parse(localStorage.getItem('cart')) || [];
+          // Check if the product already exists in the cart
+          const existingProductIndex = cart.findIndex(item => item.name === product.name);
+      
+          if (existingProductIndex !== -1) {
+            // If the product exists, increment its quantity
+            cart[existingProductIndex].quantity += 1;
+          } else {
+            // If the product doesn't exist, add it to the cart with a quantity of 1
+            product.quantity = 1;
+            cart.push(product);
+          }
+      
+          localStorage.setItem('cart', JSON.stringify(cart));
+          alert(`${product.name} has been added to the cart!`);
+        }
+      
+        // Add event listener to the "Apply Discount" button
+        const saveButton = document.getElementById('saveButton');
+        saveButton.addEventListener('click', () => {
+          const discount = slider.value;
+          renderProducts(products, discount);
+        });
+      
+        // Reset product prices to default when the website is closed
+        window.addEventListener('unload', () => {
+          products.forEach(product => {
+            product.price = product.defaultPrice;
+          });
+        });
+      
+      </script>
+    </section>
+</body>
