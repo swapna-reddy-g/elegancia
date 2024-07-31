@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cart</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="shortcut icon" href="image/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     .cart-item {
       display: flex;
@@ -14,8 +18,8 @@
     }
 
     .cart-item img {
-      width: 50px;
-      height: 50px;
+      width: 150px;
+      height: 150px;
       margin-right: 10px;
     }
 
@@ -30,10 +34,13 @@
 
     .quantity-controls button {
       padding: 5px 10px;
+      background-color: #8230e1;
+      opacity: 80%;
     }
 
     .quantity-controls input {
       width: 40px;
+      height: 25x;
       text-align: center;
       margin: 0 5px;
     }
@@ -42,11 +49,31 @@
       position: fixed;
       top: 10px;
       right: 10px;
-      background-color: #333;
+      background-color: #8230e1;
       color: #fff;
       padding: 10px;
       border-radius: 5px;
     }
+    .remove-btn {
+    opacity: 80%;
+    background-color: #8032ce; /* Red background color */
+    color: white; /* White text color */
+    border: none; /* Remove default button border */
+    padding: 8px 16px; /* Add some padding */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make it an inline-block element */
+    font-size: 14px; /* Set font size */
+    margin: 4px 2px; /* Add some margin */
+    cursor: pointer; /* Change cursor to a pointer on hover */
+    border-radius: 4px; /* Add rounded corners */
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+  }
+
+  .remove-btn:hover {
+    opacity: 100%;
+    background-color: #8032ce; /* Darker background color on hover */
+  }
 
   </style>
 </head>
@@ -78,7 +105,7 @@
               <button data-index="${index}" data-action="increase">+</button>
             </div>
           </div>
-          <button data-index="${index}" data-action="remove">Remove</button>
+          <button class="remove-btn" data-index="${index}" data-action="remove">Remove</button>
         `;
         cartContainer.appendChild(cartItemElement);
       });

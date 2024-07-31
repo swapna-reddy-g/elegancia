@@ -15,8 +15,15 @@
       <div class="slider-container">
         <input type="range" min="0" max="100" value="0" class="slider" id="mySlider">
         <input type="number" min="0" max="100" value="0" id="sliderValue">
+        <select id="productIds" multiple>
+
+        </select>
       </div>
       <button id="saveButton">Apply Discount</button>
+      <!-- Products section -->
+    <div class="products-section">
+      <iframe src="products.html" width="100%" height="800" frameborder="0"></iframe>
+    </div>
     </section>
   </main>
 
@@ -30,7 +37,45 @@
     // Get the slider and number input elements
     const slider = document.getElementById('mySlider');
     const numberInput = document.getElementById('sliderValue');
+    const productIds = document.getElementById('productIds')
+    let products = JSON.parse(localStorage.getItem('products')) || []
+    products.forEach((product, index) => {
+      const option = document.createElement('option');
+      option.value = index; // Use the index as the value
+      option.text = product.name; // Use the product name as the text
+      productIds.appendChild(option);
+    });
 
+    function getSetProducts(action, newProducts) {
+      if (action == 'get') {
+        let products = JSON.parse(localStorage.getItem('products'))
+        return products;
+      } else {
+        localStorage.setItem('products', JSON.stringify(newProducts))
+      }
+
+    }
+
+    function applyDiscountToSelectedProducts(discountValue,selectedProductIds) {
+      let products = getSetProducts('get', []) || [];
+      let discountedProducts = products.map((product, index) => {
+        if (selectedProductIds.includes(index)) {
+        console.log(product.discount,"product");
+
+          product.discount = parseInt(discountValue);
+          product.price = product.price * (100 - parseInt(discountValue)) / 100;
+        }
+        return product;
+
+      });
+
+      getSetProducts('set', discountedProducts)
+      // Get the discount value from the slider
+      // Show a pop-up
+      alert('Offers Created');
+
+      // get products from the localstorage
+    }
     // Add an event listener to the slider
     slider.addEventListener('input', updateNumberInput);
 
@@ -46,12 +91,11 @@
     saveButton.addEventListener('click', () => {
       const discountValue = slider.value; // Get the discount value from the slider
       localStorage.setItem('discount', discountValue); // Store the discount value in localStorage
-
+      const selectedProductIds = Array.from(productIds.selectedOptions).map(option => parseInt(option.value));
+      applyDiscountToSelectedProducts(discountValue,selectedProductIds);
       // Show a pop-up
       alert('Offers Created');
 
-    // Redirect to index.html
-    window.location.href = 'index.html';
 
 });
 
@@ -78,5 +122,15 @@
     // Add event listener to the logout button
     document.getElementById('logout-button').addEventListener('click', logout);
   </script>
+  <div id="message"></div>
+  <div id="admin-chatbot-button" class="admin-chatbot-button">Admin Chatbot</div>
+  <div id="chatbot" class="chatbot hidden">
+    <div id="chatbot-header" class="chatbot-header">Chatbot</div>
+    <div id="chatbot-messages" class="chatbot-messages"></div>
+    <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type a message...">
+  </div>
+
+  <script src="admin-chatbot.js"></script>
+
 </body>
 </html>

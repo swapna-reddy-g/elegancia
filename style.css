@@ -42,6 +42,21 @@ section nav{
     left: 0;
     right: 0;
     z-index: 100;
+    padding: 0 20px; /* Add some padding to the nav */
+}
+
+.login-chatbot-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  text-align : center;
+  align-items: center;
+  position:relative;
 }
 
 section nav .logo{
@@ -60,11 +75,15 @@ section nav .logo span{
 
 section nav ul{
     list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 section nav ul li{
     display: inline-block;
-    margin: 5px 15px;
+    margin: 0 10px;
 }
 
 section nav ul li a{
@@ -177,8 +196,10 @@ section .main .button:hover i{
 
 .products{
     width: 100%;
-    height: 140vh;
     padding: 25px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .products h1{
@@ -197,18 +218,17 @@ section .main .button:hover i{
     width: 90%;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 25px 0;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 25px;
 }
 
 .products .box .card{
-    width: 290px;
-    height: 440px;
     box-shadow: 0 0 8px #6c14d0;
     border-radius: 5px;
     text-align: center;
     padding: 10px 20px;
     background: #f6f6f6;
+    position: relative;
 }
 
 .products .box .card .small_card{
@@ -216,13 +236,13 @@ section .main .button:hover i{
     flex-flow: column;
     position: absolute;
     margin: 10px 0;
-    transform: translateX(-20px);
+    transform: translateX(20px);
     transition: 0.3s;
     opacity: 0;
 }
 
 .products .box .card:hover .small_card{
-    transform: translateX(2px);
+    transform: translateX(0);
     cursor: pointer;
     opacity: 1;
 }
@@ -286,7 +306,27 @@ section .main .button:hover i{
     background: linear-gradient(to right, #c72092 , #6c14d0);
     color: white;
 }
+/* Media Queries */
 
+@media (max-width: 768px) {
+    .products .box {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .products h1 {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .products .box {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .products h1 {
+        font-size: 24px;
+    }
+}
 
 /*About*/
 
@@ -813,6 +853,9 @@ body {
     text-align: center; /* Center-aligns text and form within the container */
     margin: 0;
     padding: 20px; /* Optional: add some padding around the body */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 #Login {
@@ -823,6 +866,11 @@ body {
     width: 100%;
     max-width: 400px;
     margin: 0 auto; /* Centers the form horizontally */
+}
+
+header {
+    padding: 20px;
+    text-align: center;
 }
 
 h1 {
@@ -940,6 +988,7 @@ a:nth-of-type(2):hover {
     position: absolute;
     top: 10px;
     right: 10px;
+    display: inline-block;
   }
 .icons {
   display: flex;
@@ -958,4 +1007,116 @@ a:nth-of-type(2):hover {
   text-decoration: none;
   color: inherit;
 }
+/* Chatbot CSS */
+/* Style for the chatbot button */
+  
+  /* Hidden class to hide the chatbot */
+  .hidden {
+    display: none;
+  }
+  
+  /* Style for the chatbot interface */
+  .chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chatbot-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .chatbot-messages {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .chatbot-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .admin-chatbot-button {
+    position:absolute;
+    bottom:250px;
+    right: -50px;
+    transform: rotate(-90deg);
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
+ /* Styles for Customer Chatbot */
+/* Styles for Customer Chatbot */
+
+#cus-chatbot-button {
+    position: fixed;
+    bottom: 150px;
+    right: -50px;
+    transform: rotate(-90deg);
+    background-color: #007bff; /* Blue background color */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+#cus-chatbot {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+    max-height: 400px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none; /* Initially hidden */
+    flex-direction: column;
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+#cus-chatbot-header {
+    background-color: #007bff; /* Blue background color */
+    color: #fff;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+}
+
+#cus-chatbot-messages {
+    padding: 10px;
+    overflow-y: auto;
+    flex: 1;
+    max-height: 300px;
+}
+
+#cus-chatbot-input {
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    padding: 10px;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
+}
